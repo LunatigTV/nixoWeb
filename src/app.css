@@ -1,29 +1,110 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "@fontsource-variable/geist";
+
+@config "../tailwind.config.js";
 
 @layer components {
-  .shadow {
-    @apply [text-shadow:_0_4px_4px_rgb(0_0_0_/_100%)];
-  }
+    .shadow {
+        @apply [text-shadow:_0_4px_4px_rgb(0_0_0_/_100%)];
+    }
 
-  .btn-nav {
-    @apply font-semibold uppercase md:text-lg hover:text-nixo hvr-transition;
-  }
+    .btn-nav {
+        @apply font-semibold uppercase md:text-lg hover:text-nixo transition ease-in-out duration-300;
+    }
 
-  .hvr-transition {
-    @apply transition ease-in-out duration-300;
-  }
+    .hvr-transition {
+        @apply transition ease-in-out duration-300;
+    }
 
-  .linkText {
-    @apply text-nixo font-semibold hover:brightness-75 hvr-transition;
-  }
+    .linkText {
+        @apply text-nixo font-semibold hover:brightness-75 transition ease-in-out duration-300;
+    }
 
-  .highlightText {
-    @apply text-nixo font-semibold;
-  }
+    .highlightText {
+        @apply text-nixo font-semibold;
+    }
 
-  .backgroundBox {
-    @apply container mx-auto max-w-5xl md:px-0 px-2 py-0.5 my-5 overflow-hidden min-h-screen bg-box rounded-2xl;
-  }
+    .backgroundBox {
+        @apply container mx-auto max-w-5xl md:px-0 px-2 py-0.5 my-5 overflow-hidden min-h-screen bg-box rounded-2xl;
+    }
+}
+
+@layer base {
+
+    * {
+        @apply border-border outline-ring/50;
+    }
+
+
+    body {
+        @apply bg-background text-foreground;
+    }
+
+
+    html {
+        @apply font-sans;
+    }
+}
+
+@custom-variant data-open {
+    &:where([data-state="open"]), &:where([data-open]:not([data-open="false"])) {
+        @slot;
+    }
+}
+
+@custom-variant data-closed {
+    &:where([data-state="closed"]), &:where([data-closed]:not([data-closed="false"])) {
+        @slot;
+    }
+}
+
+@custom-variant data-checked {
+    &:where([data-state="checked"]), &:where([data-checked]:not([data-checked="false"])) {
+        @slot;
+    }
+}
+
+@custom-variant data-unchecked {
+    &:where([data-state="unchecked"]), &:where([data-unchecked]:not([data-unchecked="false"])) {
+        @slot;
+    }
+}
+
+@custom-variant data-selected {
+    &:where([data-selected]) {
+        @slot;
+    }
+}
+
+@custom-variant data-disabled {
+    &:where([data-disabled="true"]), &:where([data-disabled]:not([data-disabled="false"])) {
+        @slot;
+    }
+}
+
+@custom-variant data-active {
+    &:where([data-state="active"]), &:where([data-active]:not([data-active="false"])) {
+        @slot;
+    }
+}
+
+@custom-variant data-horizontal {
+    &:where([data-orientation="horizontal"]) {
+        @slot;
+    }
+}
+
+@custom-variant data-vertical {
+    &:where([data-orientation="vertical"]) {
+        @slot;
+    }
+}
+
+@utility no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
 }

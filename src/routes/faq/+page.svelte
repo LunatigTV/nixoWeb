@@ -8,7 +8,7 @@
         isOpen: boolean;
     }
 
-    let entries: any[] = [];
+    let entries: any[] = $state([]);
 
     function parseContent(content: string): string {
         const imagePlaceholderRegex = /\[img:(.*?)]/g;
@@ -92,8 +92,8 @@
     {#each entries as entry, i}
         <div class="mb-5 rounded-2xl" id={`accordion-${entry.index}`}>
             <button class="bg-black/20 hover:bg-black/40 p-5 flex items-center w-full justify-between font-semibold"
-                    on:click={() => toggleAccordion(i)}
-                    on:keydown={(event) => {if (event.key === 'Enter') toggleAccordion(i)}}>
+                    onclick={() => toggleAccordion(i)}
+                    onkeydown={(event) => {if (event.key === 'Enter') toggleAccordion(i)}}>
                 <span class="font-bold text-lg">{entry.title}</span>
                 <svg data-accordion-icon class={`w-3 h-3 ${entry.isOpen ? "" : "rotate-180"} shrink-0 hvr-transition`}
                      aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 6">

@@ -1,0 +1,107 @@
+{
+  "vanillatweaks:root": {
+    "criteria": {
+      "tick": "2024-04-14 18:37:40 +0200"
+    },
+    "done": true
+  },
+  "vanillatweaks:afk_display": {
+    "criteria": {
+      "tick": "2024-04-14 18:37:40 +0200"
+    },
+    "done": true
+  },
+  "vanillatweaks:armored_elytra": {
+    "criteria": {
+      "tick": "2024-04-14 18:37:40 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/crafting_table": {
+    "criteria": {
+      "unlock_right_away": "2024-04-14 18:37:40 +0200"
+    },
+    "done": true
+  },
+  "minecraft:adventure/adventuring_time": {
+    "criteria": {
+      "minecraft:beach": "2024-04-14 18:46:31 +0200",
+      "minecraft:mushroom_fields": "2024-04-14 18:39:21 +0200",
+      "minecraft:forest": "2024-04-14 18:46:03 +0200",
+      "minecraft:sparse_jungle": "2024-04-14 18:46:10 +0200",
+      "minecraft:jungle": "2024-04-14 18:46:05 +0200",
+      "minecraft:deep_ocean": "2024-04-14 18:37:41 +0200",
+      "minecraft:river": "2024-04-14 18:46:09 +0200",
+      "minecraft:lush_caves": "2024-04-14 18:51:29 +0200",
+      "minecraft:bamboo_jungle": "2024-04-14 18:46:16 +0200"
+    },
+    "done": false
+  },
+  "minecraft:recipes/transportation/mangrove_boat": {
+    "criteria": {
+      "in_water": "2024-04-14 18:46:47 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/transportation/acacia_boat": {
+    "criteria": {
+      "in_water": "2024-04-14 18:46:47 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/transportation/cherry_boat": {
+    "criteria": {
+      "in_water": "2024-04-14 18:46:47 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/transportation/bamboo_raft": {
+    "criteria": {
+      "in_water": "2024-04-14 18:46:47 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/transportation/spruce_boat": {
+    "criteria": {
+      "in_water": "2024-04-14 18:46:47 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/transportation/birch_boat": {
+    "criteria": {
+      "in_water": "2024-04-14 18:46:47 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/transportation/oak_boat": {
+    "criteria": {
+      "in_water": "2024-04-14 18:46:47 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/transportation/jungle_boat": {
+    "criteria": {
+      "in_water": "2024-04-14 18:46:47 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/transportation/dark_oak_boat": {
+    "criteria": {
+      "in_water": "2024-04-14 18:46:47 +0200"
+    },
+    "done": true
+  },
+  "minecraft:husbandry/balanced_diet": {
+    "criteria": {
+      "pumpkin_pie": "2024-04-14 18:50:21 +0200"
+    },
+    "done": false
+  },
+  "minecraft:husbandry/root": {
+    "criteria": {
+      "consumed_item": "2024-04-14 18:50:21 +0200"
+    },
+    "done": true
+  },
+  "DataVersion": 3700
+}

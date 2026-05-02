@@ -17,3 +17,11 @@ spec:
           image: ghcr.io/ztig3r/nixoweb:latest
           ports:
             - containerPort: 8080
+          volumeMounts:
+            - name: nixocraft-data
+              mountPath: /data
+      volumes:
+        - name: nixocraft-data
+          persistentVolumeClaim:
+            claimName: nixocraft-pvc
+

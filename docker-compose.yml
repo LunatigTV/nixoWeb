@@ -1,7 +1,0 @@
-version: '3'
-services:
-  svelte:
-    build: .
-    ports:
-      - "80:80"
-    restart: always

@@ -2,7 +2,7 @@
     import {onMount} from 'svelte';
     import {title} from "$lib/titleStore";
 
-    let sections: any[] = [];
+    let sections: any[] = $state([]);
 
     onMount(async () => {
         title.set("Regeln");

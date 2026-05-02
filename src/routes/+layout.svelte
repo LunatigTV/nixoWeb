@@ -6,8 +6,14 @@
     import {statusJava} from "node-mcstatus";
     import {onMount} from "svelte";
 
-    let playerCount: number = 0;
-    let isOnline: boolean = false;
+    interface Props {
+        children?: import('svelte').Snippet;
+    }
+
+    let {children}: Props = $props();
+
+    let playerCount: number = $state(0);
+    let isOnline: boolean = $state(false);
 
     async function navigateTo(path: string) {
         await goto(path);
@@ -44,21 +50,21 @@
 <div class="sticky top-0 bg-gradient-to-r from-primary to-secondary p-0.5 px-0 pt-0 z-50">
     <nav class="flex w-screen items-center max-h-14 p-4 bg-navbar">
         <div class="flex-1 flex justify-start">
-            <button on:click={main_page}>
+            <button onclick={main_page}>
                 <img src={logo} alt="Logo" class="h-8 w-auto"/>
             </button>
         </div>
 
         <div class="flex md:space-x-20 md:pl-10 pl-5 space-x-7">
-            <a class="btn-nav" href="/faq" on:click={faq_page}>
+            <a class="btn-nav" href="/faq" onclick={faq_page}>
                 <span>FaQ</span>
             </a>
 
-            <a class="btn-nav" href="/rules" on:click={rules_page}>
+            <a class="btn-nav" href="/rules" onclick={rules_page}>
                 <span>Regeln</span>
             </a>
 
-            <a class="btn-nav" href="/worlds" on:click={worlds_page}>
+            <a class="btn-nav" href="/worlds" onclick={worlds_page}>
                 <span>Welten</span>
             </a>
         </div>
@@ -91,7 +97,7 @@
     </nav>
 </div>
 
-<slot/>
+{@render children?.()}
 
 <footer class="bg-background z-50 sticky">
     <div class="bg-black/30">
@@ -125,7 +131,9 @@
             </div>
             <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8"/>
             <div class="sm:flex sm:items-center sm:justify-between">
-                <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2025 NixoCraft</span>
+                <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">
+                    © {new Date().getFullYear()} NixoCraft
+                </span>
                 <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0">
                     <li>
                         <a href="/privacy" class="hover:underline me-4 md:me-6">Datenschützerklärung</a>
