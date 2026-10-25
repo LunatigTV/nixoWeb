@@ -1,104 +1,48 @@
 <script lang="ts">
-    import * as Card from "$lib/components/ui/card/index.js";
-    import {onMount} from "svelte";
-    import {title} from "$lib/titleStore";
-    import type {World} from "$lib/model/world";
-    import type {Player} from "$lib/model/player";
-    import {Button} from "$lib/components/ui/button/index.js";
-    import {ArrowDownWideNarrow, Funnel} from '@lucide/svelte/icons';
-    import {Input} from "$lib/components/ui/input";
+    import LeaderboardCard from "$lib/components/LeaderboardCard.svelte";
+    import type {LeaderboardGroup} from "$lib/server/db/stats";
+    import type {PageData} from './$types';
 
-    let {data} = $props<{ data: { allPlayers: Player[] } }>();
+    let {data}: { data: PageData } = $props();
 
-    let worlds: any[] = $state([]);
-    let players = $derived(data.allPlayers);
+    let currentWorldId = $state(data.selectedWorldId);
+    let leaderboards: LeaderboardGroup[] = $state(data.leaderboards);
+    let loading = $state(false);
 
-    let worldSearch = $state("");
-    let playerSearch = $state("");
-
-    const norm = (v?: string) => (v ?? "").toLowerCase().trim();
-
-    let filteredWorlds = $derived(
-        worlds.filter((m) => norm(m.title).includes(norm(worldSearch)))
-    );
-
-    let filteredPlayers = $derived(
-        players.filter((p) =>
-            norm(p.name).includes(norm(playerSearch)) ||
-            p.uuid.toLowerCase().includes(norm(playerSearch))
-        ).sort((a, b) => a.name.localeCompare(b.name))
-    );
-
-    onMount(async () => {
-        title.set("Statistiken");
-
-        const response = await fetch('/maps.json');
-        worlds = await response.json();
-    });
-
+    async function selectWorld(worldId: number) {
+        currentWorldId = worldId;
+        loading = true;
+        try {
+            const res = await fetch(`/api/stats?worldId=${worldId}`);
+            leaderboards = await res.json();
+        } catch (err) {
+            console.error("Failed to load map stats", err);
+        } finally {
+            loading = false;
+        }
+    }
 </script>
 
-<section class="flex h-[80dvh] max-w-7xl mx-auto flex-col lg:flex-row gap-4 py-4">
-    <Card.Root class="min-h-0 flex-1">
-        <Card.Header class="border-b">
-            <Card.Title>
-                Welten
-            </Card.Title>
+<section class="max-w-7xl mx-auto p-4 space-y-6">
+    <h1>Ranglisten</h1>
 
-            <Card.Action class="flex gap-x-2 items-center">
-                <Input bind:value={worldSearch} type="search" placeholder="Suche..." class="max-w-xs"/>
-                <Button variant="outline" size="icon" aria-label="Submit">
-                    <ArrowDownWideNarrow/>
-                </Button>
-                <Button variant="outline" size="icon" aria-label="Submit">
-                    <Funnel/>
-                </Button>
-            </Card.Action>
-        </Card.Header>
+    <!-- World Selector Tabs -->
+    <div class="flex gap-2 overflow-x-auto pb-2 border-b border-border">
+        {#each data.worlds as world (world.id)}
+            <button
+                    onclick={() => selectWorld(world.id)}
+                    class="px-4 py-2 rounded-md font-medium text-sm transition-colors whitespace-nowrap
+                {currentWorldId === world.id ? 'bg-primary text-primary-foreground' : 'bg-muted hover:bg-accent'}"
+            >
+                {world.name}
+            </button>
+        {/each}
+    </div>
 
-        <Card.Content class="flex flex-col overflow-y-auto gap-y-3">
-            {#each filteredWorlds as world}
-                <Card.Root class="h-24 justify-center">
-                    <Card.Header>
-                        <Card.Title>{world.title}</Card.Title>
-                    </Card.Header>
-                    <Card.Image src="/assets/{world.imageUrl}"/>
-                </Card.Root>
-            {/each}
-        </Card.Content>
-
-
-    </Card.Root>
-
-    <Card.Root class="min-h-0 flex-1">
-        <Card.Header class="border-b">
-            <Card.Title>
-                Spieler
-            </Card.Title>
-
-            <Card.Action class="flex gap-x-2 items-center">
-                <Input bind:value={playerSearch} type="search" placeholder="Suche..." class="max-w-xs"/>
-                <Button variant="outline" size="icon" aria-label="Submit">
-                    <ArrowDownWideNarrow/>
-                </Button>
-                <Button variant="outline" size="icon" aria-label="Submit">
-                    <Funnel/>
-                </Button>
-            </Card.Action>
-        </Card.Header>
-
-        <Card.Content class="flex flex-col overflow-y-auto gap-y-3">
-            {#each filteredPlayers as player}
-                <Card.Root onclick={() => { window.location.href = `/stats/${player.uuid}`; }} class="cursor-pointer">
-                    <Card.Header class="flex space-x-2">
-                        <img src="https://api.mineatar.io/face/{player.uuid}/" alt="{player.name}"/>
-                        <Card.Title>{player.name}</Card.Title>
-                    </Card.Header>
-                </Card.Root>
-            {/each}
-        </Card.Content>
-
-    </Card.Root>
-
-
+    <!-- Reusable Dynamic Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {#each leaderboards as leaderboard (leaderboard.id)}
+            <LeaderboardCard {leaderboard} {loading}/>
+        {/each}
+    </div>
 </section>

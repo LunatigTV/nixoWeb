@@ -1,15 +1,15 @@
 <script lang="ts">
     import {onMount} from "svelte";
     import {title} from "$lib/titleStore";
-    import type {Player} from "$lib/model/player";
     import {Card, CardContent, CardHeader, CardTitle} from "$lib/components/ui/card/index.js";
     import {ChartContainer, ChartTooltip} from "$lib/components/ui/chart/index.js";
     import {Separator} from "$lib/components/ui/separator/index.js";
     import {Clock, Sword, TrendingUp, PickaxeIcon, BlocksIcon, ArrowRight} from '@lucide/svelte/icons';
     import {PieChart} from "layerchart";
     import {cubicInOut} from "svelte/easing";
-    import {getBlockTexturePath} from "$lib/mc-utils";
+    import {getValidAssetPath} from "$lib/mc-utils";
     import {goto} from "$app/navigation";
+    import type {Advancement, Player, PlayerAdvancement} from "$lib/server/db/schema";
 
     async function navigateTo(path: string) {
         await goto(path);
@@ -34,20 +34,14 @@
             playtimeStatsPerWorld: WorldStat[];
             mobkillStatsPerWorld: WorldStat[];
             totalAdvancements: number,
-            advancementsPerWorld: WorldStat[];
+            playerAdvancements: PlayerAdvancement[];
             topMinedBlocks: { key: string; total: number }[];
             topPlacedBlocks: { key: string; total: number }[];
         }
     }>();
 
-    let player = $derived(data.player);
-    let playtimeStatsPerWorld = $derived(data.playtimeStatsPerWorld);
-    let mobkillsPerWorld = $derived(data.mobkillStatsPerWorld);
-    let advancementsPerWorld = $derived(data.advancementsPerWorld);
-    let totalAdvancements = $derived(data.totalAdvancements);
-
     const buildEntries = (stats: WorldStat[], getValue: (entry: WorldStat) => number = (entry) => entry.total): ChartEntry[] => {
-        if (!stats.length) return [];
+        if (!stats) return [];
 
         return stats.map((entry: WorldStat, index: number) => ({
             world: entry.world,
@@ -63,9 +57,9 @@
 
     const sumValues = (entries: ChartEntry[]) => entries.reduce((sum: number, entry: ChartEntry) => sum + entry.value, 0);
 
-    let playtimeByWorld = $derived.by(() => buildEntries(playtimeStatsPerWorld, (entry) => Number((entry.total / TICKS_PER_HOUR).toFixed(2))));
-    let mobkillsByWorld = $derived.by(() => buildEntries(mobkillsPerWorld));
-    let advancementsByWorld = $derived.by(() => buildEntries(advancementsPerWorld));
+    let playtimeByWorld = $derived.by(() => buildEntries(data.playtimeStatsPerWorld, (entry) => Number((entry.total / TICKS_PER_HOUR).toFixed(2))));
+    let mobkillsByWorld = $derived.by(() => buildEntries(data.mobkillsPerWorld));
+    let advancementsByWorld = $derived.by(() => buildEntries(data.advancementsPerWorld));
 
     let playtimeChartConfig = $derived(buildChartConfig(playtimeByWorld));
     let mobKillsChartConfig = $derived(buildChartConfig(mobkillsByWorld));
@@ -86,8 +80,8 @@
 <section class="max-w-7xl mx-auto py-4 grid grid-cols-1 lg:grid-cols-3 gap-4">
     <Card class="min-h-0 w-full md:col-span-3">
         <CardHeader class="border-b flex items-center gap-4">
-            <img src="https://api.mineatar.io/face/{player.uuid}/" alt="{player.name}"/>
-            <CardTitle>{player.name}</CardTitle>
+            <img src="https://api.mineatar.io/face/{data.player.uuid}/" alt="{data.player.name}"/>
+            <CardTitle>{data.player.name}</CardTitle>
         </CardHeader>
     </Card>
 
@@ -97,7 +91,7 @@
             icon: TrendingUp,
             entries: advancementsByWorld,
             config: advancementsChartConfig,
-            total: String(totalAdvancements),
+            total: String(data.totalAdvancements),
             detailPage: "advancements"
         },
         {
@@ -120,8 +114,8 @@
             <CardHeader class="border-b flex items-center gap-4">
                 <Icon color="#94c6f3"/>
                 <CardTitle>{card.title}</CardTitle>
-                <a href="/stats/{player.uuid}/advancements" class="ml-auto"
-                   onclick={() => navigateTo("/stats/" + player.uuid + "/" + card.detailPage)}>
+                <a href="/stats/{data.player.uuid}/advancements" class="ml-auto"
+                   onclick={() => navigateTo("/stats/" + data.player.uuid + "/" + card.detailPage)}>
                     <ArrowRight class="hover:stroke-nixo"/>
                 </a>
             </CardHeader>
@@ -186,7 +180,7 @@
                                         <div class="flex flex-1 space-x-2">
                                             <span class="font-semibold text-lg">{i + 1}</span>
                                             <Separator orientation="vertical"/>
-                                            <img src={getBlockTexturePath(item.key)} alt={item.key}/>
+                                            <img src={getValidAssetPath(item.key)} alt={item.key} class="w-12 h-12"/>
                                             <span>{formatBlockKey(item.key)}</span>
                                         </div>
 

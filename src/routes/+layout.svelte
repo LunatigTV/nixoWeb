@@ -27,6 +27,10 @@
         await navigateTo("/worlds");
     }
 
+    async function stats_page() {
+        await navigateTo("/stats");
+    }
+
     async function rules_page() {
         await navigateTo("/rules");
     }
@@ -66,6 +70,10 @@
 
             <a class="btn-nav" href="/worlds" onclick={worlds_page}>
                 <span>Welten</span>
+            </a>
+
+            <a class="btn-nav" href="/stats" onclick={stats_page}>
+                <span>Statistiken</span>
             </a>
         </div>
 

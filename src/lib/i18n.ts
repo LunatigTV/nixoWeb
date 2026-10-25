@@ -7,7 +7,7 @@ export const locale = writable<keyof typeof languages>("en");
 
 type TranslationKey = keyof typeof en;
 
-export function t(key: TranslationKey): string {
+export function translate(key: TranslationKey): string {
     const currentLang = get(locale);
     return languages[currentLang][key] ?? key;
 }

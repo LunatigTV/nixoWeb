@@ -1,0 +1,42 @@
+[
+    {
+        "name": "NixoCraft 5",
+        "description": "November 2025 - heute",
+        "version": "1.21.10",
+        "imageUrl": "server5.jpg",
+        "downloadUrl": "",
+        "isActive": true
+    },
+    {
+        "name": "NixoCraft 4",
+        "description": "Februar 2024 - November 2025",
+        "version": "1.20.6",
+        "imageUrl": "server4.jpg",
+        "downloadUrl": "https://drive.google.com/file/d/18XMgMulErU88-kFvUkXM-f9cNRa4qrCS/view?usp=drive_link",
+        "isActive": false
+    },
+    {
+        "name": "NixoCraft 3",
+        "description": "Juni 2022 - Januar 2024",
+        "version": "1.19.3",
+        "imageUrl": "server3.jpg",
+        "downloadUrl": "https://drive.google.com/file/d/1uutUhbymD3jpPAMGwwTl3MTSsJ5ACeGC/view?usp=drive_link",
+        "isActive": false
+    },
+    {
+        "name": "NixoCraft 2",
+        "description": "Mai 2021 - Juni 2022",
+        "version": "1.16.4",
+        "imageUrl": "server2.jpg",
+        "downloadUrl": "https://drive.google.com/file/d/1F1w7fO2YMQt8CHHIxKiP8UjXmbkinI6T/view?usp=drive_link",
+        "isActive": false
+    },
+    {
+        "name": "NixoCraft 1",
+        "description": "April 2020 - Mai 2021",
+        "version": "1.16.4 (1.14.4)",
+        "imageUrl": "server1.jpg",
+        "downloadUrl": "https://drive.google.com/file/d/1VZbWUktF7uIwMEYvVu65pDqY6_Fxhheg/view?usp=drive_link",
+        "isActive": false
+    }
+]

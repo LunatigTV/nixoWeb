@@ -1,14 +1,20 @@
-import db from '$lib/server/init-db';
-import type {Player} from "$lib/model/player";
+import {db} from '$lib/server/db';
+import {worlds} from '$lib/server/db/schema';
+import {getMapLeaderboards} from '$lib/server/db/stats';
+import type {PageServerLoad} from './$types';
 
-export function load(): Player[] {
-    const allPlayers = db.prepare(`
-        SELECT id, uuid, name
-        FROM players
-        ORDER BY id DESC
-    `).all() as Player[];
+export const load: PageServerLoad = async ({url}) => {
+    const allWorlds = await db
+        .select({id: worlds.id, name: worlds.name})
+        .from(worlds)
+        .orderBy(worlds.id);
+
+    const selectedWorldId = Number(url.searchParams.get('worldId')) || allWorlds[0]?.id || 1;
+    const leaderboards = await getMapLeaderboards(selectedWorldId);
 
     return {
-        allPlayers
+        worlds: allWorlds,
+        selectedWorldId,
+        leaderboards
     };
-}
+};
