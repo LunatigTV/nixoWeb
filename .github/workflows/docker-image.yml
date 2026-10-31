@@ -2,7 +2,7 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "main" ]
 
 permissions:
   contents: read
@@ -10,6 +10,8 @@ permissions:
 
 jobs:
   call-build:
-    uses: zTig3r/workflows/.github/workflows/build-and-push-docker-image.yml@master
+    uses: LunatigTV/workflows/.github/workflows/build-and-push-docker-image.yml@main
     with:
       project_name: 'nixoweb'
+    secrets:
+      DEPLOYMENT_REPO_PAT: ${{ secrets.DEPLOYMENT_REPO_PAT }}
