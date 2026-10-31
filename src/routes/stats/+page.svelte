@@ -1,26 +1,13 @@
 <script lang="ts">
+    import {goto} from '$app/navigation';
     import LeaderboardCard from "#lib/components/leaderboard-card.svelte";
-    import type {LeaderboardGroup} from "#lib/server/db/stats";
     import type {PageData} from './$types';
     import {Button} from "#lib/components/ui/button";
 
     let {data}: { data: PageData } = $props();
 
-    let currentWorldId = $state(data.selectedWorldId);
-    let leaderboards: LeaderboardGroup[] = $state(data.leaderboards);
-    let loading = $state(false);
-
-    async function selectWorld(worldId: number) {
-        currentWorldId = worldId;
-        loading = true;
-        try {
-            const res = await fetch(`/api/stats?worldId=${worldId}`);
-            leaderboards = await res.json();
-        } catch (err) {
-            console.error("Failed to load map stats", err);
-        } finally {
-            loading = false;
-        }
+    function selectWorld(worldId: number) {
+        goto(`?worldId=${worldId}`, {reset: false});
     }
 </script>
 
@@ -29,7 +16,7 @@
 
     <div class="flex gap-2 overflow-x-auto pb-2 border-b border-border">
         {#each data.worlds as world (world.id)}
-            {#if world.id === currentWorldId}
+            {#if world.id === data.selectedWorldId}
                 <Button> {world.name} </Button>
             {:else}
                 <Button onclick={() => selectWorld(world.id)} variant="outline">
@@ -40,8 +27,8 @@
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {#each leaderboards as leaderboard (leaderboard.id)}
-            <LeaderboardCard {leaderboard} {loading}/>
+        {#each data.leaderboards as leaderboard (leaderboard.id)}
+            <LeaderboardCard {leaderboard}/>
         {/each}
     </div>
 </section>

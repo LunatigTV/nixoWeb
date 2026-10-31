@@ -15,7 +15,7 @@
 </script>
 
 <!-- Fixed height container with flex column layout -->
-<Card.Root class="h-[675px] flex flex-col shadow-sm border border-border">
+<Card.Root class="h-168.75 flex flex-col shadow-sm border border-border">
     <Card.Header class="border-b py-3 px-4 shrink-0">
         <Card.Title class="text-lg flex items-center gap-2">
             <span>{leaderboard.icon}</span>

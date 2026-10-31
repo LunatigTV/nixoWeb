@@ -1,3 +1,9 @@
+<script>
+</script>
+
+Temporary disabled due to issues with the chart library. Will be re-enabled in the future.
+
+<!--
 <script lang="ts">
     import {onMount} from "svelte";
     import {title} from "#lib/titleStore";
@@ -195,3 +201,4 @@
         </Card>
     {/each}
 </section>
+-->
