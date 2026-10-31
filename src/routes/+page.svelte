@@ -6,13 +6,13 @@
 
     import nixoCraftLogo from "#lib/assets/nixocraft5.webp";
 
-    import image1 from "#lib/assets/slideShow/image1.jpg";
-    import image2 from "#lib/assets/slideShow/image2.jpg";
-    import image3 from "#lib/assets/slideShow/image3.jpg";
-    import image4 from "#lib/assets/slideShow/image4.jpg";
-    import image5 from "#lib/assets/slideShow/image5.jpg";
-    import image6 from "#lib/assets/slideShow/image6.jpg";
-    import image7 from "#lib/assets/slideShow/image7.jpg";
+    import image1 from "#lib/assets/slideshow/image1.jpg";
+    import image2 from "#lib/assets/slideshow/image2.jpg";
+    import image3 from "#lib/assets/slideshow/image3.jpg";
+    import image4 from "#lib/assets/slideshow/image4.jpg";
+    import image5 from "#lib/assets/slideshow/image5.jpg";
+    import image6 from "#lib/assets/slideshow/image6.jpg";
+    import image7 from "#lib/assets/slideshow/image7.jpg";
 
     let images = [image1, image2, image3, image4, image5, image6, image7];
     let currentImageIndex = writable(0);
