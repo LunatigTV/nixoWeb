@@ -17,8 +17,9 @@
     let images = [image1, image2, image3, image4, image5, image6, image7];
     let currentImageIndex = writable(0);
 
+    title.clear();
+    
     onMount(() => {
-        title.clear();
 
         const interval = setInterval(() => {
             const nonHiddenImages = images.filter((_, index) => index !== $currentImageIndex);

@@ -3,8 +3,11 @@
     import LeaderboardCard from "#lib/components/leaderboard-card.svelte";
     import type {PageData} from './$types';
     import {Button} from "#lib/components/ui/button";
+    import {title} from "#lib/titleStore.ts";
 
     let {data}: { data: PageData } = $props();
+
+    title.set("Statistiken");
 
     function selectWorld(worldId: number) {
         goto(`?worldId=${worldId}`, {reset: false});

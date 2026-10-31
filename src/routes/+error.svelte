@@ -2,11 +2,8 @@
     import nixo_lupe from '#lib/assets/nixos/nixo-lupe.webp';
     import {Button} from '#lib/components/ui/button';
     import {title} from "#lib/titleStore";
-    import {onMount} from "svelte";
 
-    onMount(() => {
-        title.set("404");
-    });
+    title.set("404");
 </script>
 
 <div class="absolute inset-0 -top-24 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 px-4">

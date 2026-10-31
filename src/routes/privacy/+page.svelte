@@ -1,3 +1,9 @@
+<script lang="ts">
+    import {title} from "#lib/titleStore";
+
+    title.set("Datenschützerklärung");
+</script>
+
 <section
         class="container mx-auto max-w-5xl py-0.5 my-5 bg-black/20 rounded-2xl min-h-screen"
 >

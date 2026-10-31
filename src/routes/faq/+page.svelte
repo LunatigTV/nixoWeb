@@ -10,6 +10,8 @@
 
     let entries: any[] = $state([]);
 
+    title.set("FAQ");
+
     function parseContent(content: string): string {
         const imagePlaceholderRegex = /\[img:(.*?)]/g;
         const linkPlaceholderRegex = /\[link:(.*?)\|(.*?)]/g;
@@ -56,7 +58,6 @@
     }
 
     onMount(async () => {
-        title.set("FAQ");
 
         const response = await fetch('/faq.json');
         const json = await response.json();

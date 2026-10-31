@@ -1,17 +1,8 @@
 <script lang="ts">
-    import {onMount} from 'svelte';
     import {title} from "#lib/titleStore";
+    import sections from '#lib/rules.json';
 
-    let sections: any[] = $state([]);
-
-    onMount(async () => {
-        title.set("Regeln");
-
-        const response = await fetch('/rules.json');
-        const jsonData = await response.json();
-
-        sections = jsonData.sections || [];
-    });
+    title.set("Regeln");
 </script>
 
 <section class="backgroundBox">
