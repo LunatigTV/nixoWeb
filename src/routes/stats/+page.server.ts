@@ -1,6 +1,6 @@
-import {db} from '$lib/server/db';
-import {worlds} from '$lib/server/db/schema';
-import {getMapLeaderboards} from '$lib/server/db/stats';
+import {db} from '#lib/server/db';
+import {worlds} from '#lib/server/db/schema';
+import {getMapLeaderboards} from '#lib/server/db/stats';
 import type {PageServerLoad} from './$types';
 
 export const load: PageServerLoad = async ({url}) => {

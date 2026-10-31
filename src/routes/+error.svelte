@@ -1,7 +1,7 @@
 <script>
-    import nixo_lupe from '$lib/assets/nixos/nixo-lupe.webp';
-    import {Button} from '$lib/components/ui/button';
-    import {title} from "$lib/titleStore";
+    import nixo_lupe from '#lib/assets/nixos/nixo-lupe.webp';
+    import {Button} from '#lib/components/ui/button';
+    import {title} from "#lib/titleStore";
     import {onMount} from "svelte";
 
     onMount(() => {

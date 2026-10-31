@@ -1,11 +1,11 @@
 <script lang="ts">
     import {BlocksIcon, PickaxeIcon} from "@lucide/svelte";
-    import {getAdvancementFramePath, getValidAssetPath} from "$lib/mc-utils";
-    import {Card, CardContent, CardHeader, CardTitle} from "$lib/components/ui/card";
-    import {Separator} from "$lib/components/ui/separator";
+    import {getAdvancementFramePath, getValidAssetPath} from "#lib/mc-utils";
+    import {Card, CardContent, CardHeader, CardTitle} from "#lib/components/ui/card";
+    import {Separator} from "#lib/components/ui/separator";
     import {onMount} from "svelte";
-    import {title} from "$lib/titleStore";
-    import {Progress} from "$lib/components/ui/progress/index";
+    import {title} from "#lib/titleStore";
+    import {Progress} from "#lib/components/ui/progress/index";
     import type {
         Advancement,
         AdvancementCategory,
@@ -13,9 +13,9 @@
         Player, PlayerAdvancement,
         VersionAdvancementCount,
         World
-    } from "$lib/server/db/schema";
-    import * as Select from "$lib/components/ui/select/index.js";
-    import {translate} from "$lib/i18n";
+    } from "#lib/server/db/schema";
+    import * as Select from "#lib/components/ui/select/index.js";
+    import {translate} from "#lib/i18n";
 
     let {data} = $props<{
         data: {

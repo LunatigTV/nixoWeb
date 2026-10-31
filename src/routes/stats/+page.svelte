@@ -1,8 +1,8 @@
 <script lang="ts">
-    import LeaderboardCard from "$lib/components/leaderboard-card.svelte";
-    import type {LeaderboardGroup} from "$lib/server/db/stats";
+    import LeaderboardCard from "#lib/components/leaderboard-card.svelte";
+    import type {LeaderboardGroup} from "#lib/server/db/stats";
     import type {PageData} from './$types';
-    import {Button} from "$lib/components/ui/button";
+    import {Button} from "#lib/components/ui/button";
 
     let {data}: { data: PageData } = $props();
 

@@ -1,15 +1,15 @@
 <script lang="ts">
     import {onMount} from "svelte";
-    import {title} from "$lib/titleStore";
-    import {Card, CardContent, CardHeader, CardTitle} from "$lib/components/ui/card/index.js";
-    import {ChartContainer, ChartTooltip} from "$lib/components/ui/chart/index.js";
-    import {Separator} from "$lib/components/ui/separator/index.js";
+    import {title} from "#lib/titleStore";
+    import {Card, CardContent, CardHeader, CardTitle} from "#lib/components/ui/card/index.js";
+    import {ChartContainer, ChartTooltip} from "#lib/components/ui/chart/index.js";
+    import {Separator} from "#lib/components/ui/separator/index.js";
     import {Clock, Sword, TrendingUp, PickaxeIcon, BlocksIcon, ArrowRight} from '@lucide/svelte/icons';
     import {PieChart} from "layerchart";
     import {cubicInOut} from "svelte/easing";
-    import {getValidAssetPath} from "$lib/mc-utils";
-    import {goto} from "$app/navigation";
-    import type {Advancement, Player, PlayerAdvancement} from "$lib/server/db/schema";
+    import {getValidAssetPath} from "#lib/mc-utils";
+    import {goto} from "#app/navigation";
+    import type {Advancement, Player, PlayerAdvancement} from "#lib/server/db/schema";
 
     async function navigateTo(path: string) {
         await goto(path);

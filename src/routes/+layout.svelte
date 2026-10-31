@@ -1,12 +1,12 @@
 <script lang="ts">
     import "../app.css";
-    import {title} from "$lib/titleStore";
-    import logo from "$lib/assets/logo.webp";
-    import nixo_normal from "$lib/assets/nixos/nixo-normal.webp";
-    import ServerStatus from "$lib/components/serverstatus.svelte";
-    import SocialLink from "$lib/components/sociallink.svelte";
-    import {YoutubeIcon, InstagramIcon, TwitchIcon} from "$lib/components/icons";
-    import {Separator} from "$lib/components/ui/separator";
+    import {title} from "#lib/titleStore";
+    import logo from "#lib/assets/logo.webp";
+    import nixo_normal from "#lib/assets/nixos/nixo-normal.webp";
+    import ServerStatus from "#lib/components/serverstatus.svelte";
+    import SocialLink from "#lib/components/sociallink.svelte";
+    import {YoutubeIcon, InstagramIcon, TwitchIcon} from "#lib/components/icons";
+    import {Separator} from "#lib/components/ui/separator";
 
     interface Props {
         children?: import('svelte').Snippet;

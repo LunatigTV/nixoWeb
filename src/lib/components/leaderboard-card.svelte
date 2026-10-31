@@ -1,7 +1,7 @@
 <script lang="ts">
-    import * as Card from "$lib/components/ui/card/index.js";
-    import Skeleton from "$lib/components/ui/skeleton/skeleton.svelte";
-    import type {LeaderboardGroup} from "$lib/server/db/stats";
+    import * as Card from "#lib/components/ui/card/index.js";
+    import Skeleton from "#lib/components/ui/skeleton/skeleton.svelte";
+    import type {LeaderboardGroup} from "#lib/server/db/stats";
 
     let {
         leaderboard,

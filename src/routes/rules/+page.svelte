@@ -1,6 +1,6 @@
 <script lang="ts">
     import {onMount} from 'svelte';
-    import {title} from "$lib/titleStore";
+    import {title} from "#lib/titleStore";
 
     let sections: any[] = $state([]);
 

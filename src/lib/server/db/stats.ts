@@ -1,5 +1,5 @@
-import {db} from '$lib/server/db';
-import {players, playerStats, statTypes} from '$lib/server/db/schema';
+import {db} from '#lib/server/db';
+import {players, playerStats, statTypes} from '#lib/server/db/schema';
 import {eq, and, desc, sql, inArray} from 'drizzle-orm';
 
 // Definition for a single leaderboard type

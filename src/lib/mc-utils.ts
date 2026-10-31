@@ -1,4 +1,4 @@
-import type {AdvancementFrame} from "$lib/server/db/schema";
+import type {AdvancementFrame} from "#lib/server/db/schema";
 
 const blockMap: Record<string, string> = {
     "minecraft:grass_block": "grass_block_side",
