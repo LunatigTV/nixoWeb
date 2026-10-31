@@ -1,8 +1,6 @@
 name: Test Docker Image CI
 
 on:
-  push:
-    branches: [ feature/stats ]
   workflow_dispatch:
 
 permissions:
