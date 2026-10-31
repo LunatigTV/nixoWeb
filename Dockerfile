@@ -1,49 +1,45 @@
 # syntax=docker/dockerfile:1
-
-ARG NODE_VERSION=23.11.0
+ARG NODE_VERSION=24-alpine
 
 ################################################################################
-# Base image
-FROM node:${NODE_VERSION}-alpine AS base
+# Base
+FROM node:${NODE_VERSION} AS base
 WORKDIR /usr/src/app
 
 ################################################################################
-# Build stage (install all dependencies including devDependencies)
+# Production dependencies only (cached independently of source changes)
+FROM base AS prod-deps
+COPY package.json package-lock.json ./
+RUN --mount=type=cache,target=/root/.npm \
+    npm ci --omit=dev --ignore-scripts
+
+################################################################################
+# Build (all dependencies)
 FROM base AS build
-
-# Copy package.json and lockfile
-COPY package*.json ./
-
-# Install all dependencies (dev + prod) for build
-RUN npm ci
-
-# Copy the rest of the source code
+COPY package.json package-lock.json ./
+RUN --mount=type=cache,target=/root/.npm \
+    npm ci
 COPY . .
-
-# Run build
 RUN npm run build
 
 ################################################################################
-# Production stage (minimal image)
-FROM node:${NODE_VERSION}-alpine AS final
-WORKDIR /usr/src/app
+# Final runtime image
+FROM base AS final
 
-# Copy package.json and lockfile
-COPY package*.json ./
+ENV NODE_ENV=production \
+    PORT=8080
 
-# Install only production dependencies and ignore scripts to avoid prepare errors
-RUN npm ci --omit=dev --ignore-scripts
+# tini as PID 1 so SIGTERM from Kubernetes is forwarded and zombies are reaped
+RUN apk add --no-cache tini
 
-# Copy built application from build stage
-COPY --from=build /usr/src/app/build ./build
+COPY --from=prod-deps --chown=node:node /usr/src/app/node_modules ./node_modules
+COPY --from=build     --chown=node:node /usr/src/app/build ./build
+COPY --chown=node:node package.json ./
 
-# Set NODE_ENV to production
-ENV NODE_ENV=production
+# Numeric UID so Kubernetes `runAsNonRoot: true` can verify it
+USER 1000:1000
 
-# Use non-root user
-USER node
+EXPOSE 8080
 
-ENV PORT=8080
-
-# Run the application
+ENTRYPOINT ["/sbin/tini", "--"]
 CMD ["node", "build"]
